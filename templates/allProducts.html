@@ -1,0 +1,43 @@
+{% extends 'basic.html' %}
+{% block head %}
+<style>
+  .hover{
+  box-shadow:0px, 0px, 10px black;
+  }
+</style>
+
+{% endblock %}
+
+{% block mycontent %}
+<div class="container-fluid">
+    <div class="row" style="background:rgba(0, 0,0,0.5)">
+        <div class="col-md-12  p-3 text-center">
+            {% if abcd %}
+                <h1>Total: {{products|length}} Products found</h1>
+            {% else %}
+                <h1>All Products ({{products|length}})</h1>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row py-4">
+        {% for product in products %}
+            <div class="col-md-4">
+                <div class="p-3 mt-3 border border-info rounded hover">
+                    <img src="/media/{{product.product_img}}" class="d-block mx-auto" width="250" height="200">
+                    <h5 class="text-warning">{{product.product_category}}</h5>
+                    <a href="{% url 'single_product'%}?pid={{product.id}}" class="text-decoration-none">
+                        <h2>{{product.product_name}}</h2>
+                    </a>
+                    <p class="fs-4">
+                      <del>${{product.product_price}}</del>
+                      <strong>${{product.sale_price}}</strong>
+                    </p>
+                </div>
+            </div>
+    {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

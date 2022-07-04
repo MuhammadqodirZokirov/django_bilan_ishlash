@@ -1,0 +1,90 @@
+{% extends "dashboard_basic.html"%}
+{% load static %}
+{% block mycontent %}
+<div class="container-fluid">
+    <div class="row" style="background:rgba(0,0,0,0.5)">
+        <div class="col md-8 py-4">
+            <h2 class="text-center">Product Details</h2>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt-2">
+    <div class="row">
+        <div class="col-md-8 card shadow text-center">
+            <img src="/media/{{product.product_img}}" class="d-block mx-auto" width="400" height=300" alt="">
+            <table class="table table-hover table-bordered mt-4">
+                <tbody class="">
+                <tr>
+                    <th>Product ID</th>
+                    <th>{{product.id}}</th>
+                </tr>
+                <tr>
+                    <th>Product Name</th>
+                    <th>{{product.product_name}}</th>
+                </tr>
+                <tr>
+                    <th>Product Category</th>
+                    <th>{{product.product_category}}</th>
+                </tr>
+                <tr>
+                    <th>Product Details</th>
+                    <th>{{product.details}}</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow">
+                <h3 class="alert alert-primary">Seller Information</h3>
+                <table class="table table-hover table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>Seller ID</th>
+                        <th>{{product.seller.id}}</th>
+                    </tr>
+                    <tr>
+                        <th>Seller Name</th>
+                        <th>{{product.seller.first_name}}</th>
+                    </tr>
+                    <tr>
+                        <th>Seller Lastname</th>
+                        <th>{{product.seller.last_name}}</th>
+                    </tr>
+                    <tr>
+                        <th>Seller Email</th>
+                        <th>{{product.seller.email}}</th>
+                    </tr>
+                    <tr>
+                        <th>Seller Last update</th>
+                        <th>{{product.seller.date_joined }}</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card shadow">
+                <h3 class="alert alert-success mt-4">Category Details</h3>
+                <table class="table table-hover table-bordered">
+                    <tr>
+                        <th>Category ID</th>
+                        <th>{{product.product_category.id}}</th>
+                    </tr>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>{{product.product_category.cat_name}}</th>
+                    </tr>
+                    <tr>
+                        <th>Category Image</th>
+                        <th><img width="200" height="150" src="/media/{{product.product_category.cat_img}}" alt=""></th>
+                    </tr>
+                    <tr>
+                        <th>Category Description</th>
+                        <th>{{product.product_category.description}}</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

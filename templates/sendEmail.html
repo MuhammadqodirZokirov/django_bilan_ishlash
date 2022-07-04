@@ -1,0 +1,31 @@
+{% extends "dashboard_basic.html"%}
+{% block dashboard %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mt-2 p-2 bg-light">
+      {% if status %}
+      <div class="alert {{col}}">{{status}}</div>
+      {% endif %}
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="form_group">
+          <label class="form-label">To:</label>
+          <input name="to" type="email" class="form-control" placeholder="To...">
+        </div>
+        <div class="form_group">
+          <label class="form-label">Subject:</label>
+          <input name="subject" type="text" class="form-control" placeholder="Subject...">
+        </div>
+        <div class="form_group">
+          <label class="form-label">Message</label>
+          <textarea name="msg" cols="20" rows="5" class="form-control" placeholder="Msg..."></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-outline-info rounded-pill mt-2 w-25" value="Send Message">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

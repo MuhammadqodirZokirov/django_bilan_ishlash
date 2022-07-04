@@ -1,0 +1,74 @@
+{% extends 'basic.html'%}
+{% block mycontent %}
+<div class="container-fluid">
+    <div class="row" style="background:yellow">
+        <div class="col-md-12 py-5">
+            <form action="{% url 'allProducts' %}" method="post" class="">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" class="form-control me-2" placeholder="Search..." name="pId">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row g-4">
+        {% for category in categories%}
+        <div class="col-md-4" style="width: 20rem;">
+            <a href="{% url 'allProducts'%}?cat={{category.id}} " class="text-decoration-none">
+                <div class="card shadow">
+                    <img src="/media/{{category.cat_img}}" alt="img" width="250" height="250" class=" w-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{category.cat_name}}</h5>
+                        <p class="card-text">{{category.description}}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row mt-3 mb-4">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead class="bg-dark text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>FullName</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>FeedBack</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for contact in contacts%}
+                <tr>
+                    <td>{{contact.id}}</td>
+                    <td>{{contact.fullName}}</td>
+                    <td>{{contact.email}}</td>
+                    <td>{{contact.phone}}</td>
+                    <td>{{contact.feedback}}</td>
+                    <td>{{contact.date}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% if status %}
+<script>
+    alert("{{status}}")
+    window.location='/'
+
+
+
+
+
+
+</script>
+{% endif %}
+{% endblock %}

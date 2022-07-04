@@ -1,0 +1,40 @@
+{% extends 'dashboard_basic.html'%}
+{% block dashboard%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card shadow p-3">
+                <h4>My Details</h4>
+
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>Full Name:</th>
+                            <td>{{user.first_name}} {{user.last_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Username:</th>
+                            <td>{{user.username}}</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>{{user.email}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Update Date:</th>
+                            <td>{{user.last_login}}</td>
+                        </tr>
+                        <tr>
+                            <th>Join Date:</th>
+                            <td>{{user.date_joined}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}

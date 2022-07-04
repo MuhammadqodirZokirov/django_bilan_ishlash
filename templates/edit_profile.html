@@ -1,0 +1,78 @@
+{% extends 'dashboard_basic.html'%}
+{% load static %}
+{% block dashboard%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center bg-dark text-white p-3">
+                Dashboard &gt; Edit Profile
+            </h1>
+        </div>
+        <div class="col-md-8 mx-auto">
+            <div class="text-center">
+                {% if data.profile_img%}
+                <img src="/media/{{ data.profile_img }}"
+                     style="width:150px;height:150px;border-radius:50%" alt="">
+                {% else %}
+                <img src="{% static 'img/default.jpg'%}"
+                     style="width:150px;height:150px;border-radius:50%" alt="">
+                {% endif %}
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">First Name</label>
+                            <input type="text" name="fname" class="form-control"
+                                   value="{{user.first_name}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" name="lname" class="form-control" value="{{user.last_name}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" value="{{user.email}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Contact</label>
+                            <input type="text" name="contact" class="form-control" value="{{data.phone}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Age</label>
+                            <input type="text" name="age" class="form-control" value="{{data.age}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">City</label>
+                            <input type="text" name="city" class="form-control" value="{{data.city}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Occupation</label>
+                            <input type="text" name="occupation" class="form-control" value="{{data.occupation}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Gender</label>
+                            <select name="gender" class="form-select">
+                                <option value="Male">Male</option>
+                                <option value="Male">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Profile Img</label>
+                    <input type="file" class="form-control" name="image">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">About</label>
+                    <textarea name="about" class="form-control" cols="30" rows="5">{{data.about}}</textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary btn-lg mt-2" value="Edit Profile">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

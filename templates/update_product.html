@@ -1,0 +1,95 @@
+{% extends "dashboard_basic.html"%}
+{% load static %}
+{% block dashboard %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-11 mx-auto">
+            <h1 class="text-center alert alert-warning mt-2">Dashboard &gt; Update Product</h1>
+        </div>
+        <div class="col-md-10 mx-auto py-2">
+            <div class="container">
+                <div class="row">
+                    <div class="card shadow shadow-lg p-2">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="col-md-6">
+                                <img name="p_img" src="/media/{{product.product_img}}" class="d-block mx-auto mb-2"
+                                     width="300" height="200">
+                                <hr>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="form-label">Upload Image</label>
+                                <input class="form-control" name="p_img" type="file" placeholder="Product Img">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Product Name</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="p_name" value="{{product.product_name}}"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Product Category</label>
+                                </div>
+                                <div class="form-group">
+                                    <select name="p_cat" id="" class="form-select">
+                                        {% for cat in cats %}
+                                        {% if cat.id == product.product_category.id %}
+                                        <option value="{{cat.id}}" selected>{{cat.cat_name}}</option>
+                                        {% else %}
+                                        <option value="{{cat.id}}">{{cat.cat_name}}</option>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Product Price</label>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" value="{{product.product_price}}" name="p_price"
+                                           type="text" placeholder="Product Price...">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Product Sale Price</label>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" value="{{product.sale_price}}" name="s_price"
+                                           type="text" placeholder="Product Sale Price...">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Product Details</label>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control mb-2" name="p_details"
+                                              rows="7">{{product.details}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary" value="Save Changes">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if status %}
+<script>
+    alert('{{status}}')
+    window.location= "/my_products"
+
+</script>
+{% endif %}
+
+{% endblock %}

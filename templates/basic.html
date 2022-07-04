@@ -1,0 +1,131 @@
+<html lang="en">
+{% load static %}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="shortcut icon" href="{% static 'logo/My_logo.jpg' %}" type="image/x-icon">
+    <title>First Project</title>
+
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="px-0 col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{% url 'index'%}">Navigator</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'about'%}">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'contact'%}">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'allProducts' %}">All products</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    Kategoriyalar
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    {% for category in categories %}
+                                    <li><a class="dropdown-item" href="{% url 'allProducts'%}?cat={{category.id}}">{{category.cat_name}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto">
+                            {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="btn btn-outline-success me-2" href="{% url 'custom_dashboard' %}">Welcome
+                                    {{user.username}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-danger" href="{% url 'user_logout' %}">Logout</a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign
+                                    In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-primary" href="{% url 'signUp' %}">Sign Up</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="col-md-12">
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Login Form</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{% url 'user_login' %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" name="username" placeholder="username" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="password" placeholder="password" class="form-control">
+                                </div>
+                                <a href="{% url 'forgot_password'%}" class="text-decoration-none">Forgot password</a>
+                                <hr>
+                                <div class="form-group">
+                                    <input type="submit" value="Login" class="btn btn-primary mt-2">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% block mycontent %}
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

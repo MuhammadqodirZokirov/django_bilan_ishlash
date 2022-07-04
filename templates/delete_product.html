@@ -1,0 +1,34 @@
+{% extends "dashboard_basic.html"%}
+{% load static %}
+{% block dashboard %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6 mx-auto">
+            <div class="card shadow p-3">
+                <h2 class="text-warning">Are you want to delete?</h2>
+                <img src="/media/{{product.product_img}}" alt="xato" width="100%" height="200">
+                <div class="mt-4">
+                    <a href="{% url 'delete_product' %}?pid={{product.id}}&&action=confirm"
+                       class="btn btn-danger w-25">Confirm Delete</a>
+                    <a href="{% url 'my_products' %}" class="btn btn-warning w-50">Cancel</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% if status %}
+<script>
+    alert("{{status}}")
+    window.location="/my_products"
+
+
+</script>
+
+
+{% endif %}
+
+
+{% endblock %}
+

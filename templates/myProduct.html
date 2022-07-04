@@ -1,0 +1,79 @@
+{% extends 'dashboard_basic.html'%}
+{% block dashboard %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 my-2 py-2 text-center">
+            <h1 class="alert alert-primary">Dashboard &gt; My Products ( {{products | length}} )</h1>
+        </div>
+        <div class="col-md-12 mt-2">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Product Id</th>
+                    <th>Product Category</th>
+                    <th>Product Name</th>
+                    <th>Product Image</th>
+                    <th>Product Price</th>
+                    <th>Product Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{product.id}}</td>
+                    <td>{{product.product_category}}</td>
+                    <td>{{product.product_name}}</td>
+                    <td>
+                        <img src="/media/{{product.product_img}}" alt=""
+                             width="50%" height="100px">
+                    </td>
+                    <td>{{product.product_price}}</td>
+                    <td>
+                        <a href="" class="btn btn-primary w-10" data-bs-toggle="modal"
+                           data-bs-target="#m{{product.id}}">
+                            <i class="fas fa-eye"></i> view</a>
+                        <a href="{% url 'update_product' %}?pid={{product.id}}" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Edit</a>
+                        <a href="{% url 'delete_product' %}?pid={{product.id}}" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Delete</a>
+                    </td>
+                </tr>
+
+                <!-- Modal -->
+                <div class="modal fade" id="m{{product.id}}"
+                     tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Product Details</h5>
+                                <button type="button" class="btn-close"
+                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="/media/{{product.product_img}}" class="d-block mx-auto" alt="" width="300"
+                                     height="300">
+                                <h2>{{product.product_name}}</h2>
+                                <h4 class="text-muted">{{product.product_category}}</h4>
+                                <h2>
+                                    <span><del>${{product.product_price}}</del></span>
+                                    <span><strong>${{product.sale_price}}</strong></span>
+                                </h2>
+                                <p>{{product.details}}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="{% url 'single_product'%}?pid={{product.id}}" class="btn btn-primary">View
+                                    More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
