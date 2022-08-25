@@ -87,6 +87,7 @@ def user_login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
+        print(username, password)
         if user:
             login(request, user)
             if user.is_superuser:
